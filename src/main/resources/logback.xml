@@ -5,13 +5,10 @@
         </encoder>
     </appender>
 
-
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>5mounth.log</file>
+        <file>work-proj.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-
-            <fileNamePattern>${artifactId}.%d{yyyy-MM-dd}.log</fileNamePattern>
-
+            <fileNamePattern>work-proj.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>

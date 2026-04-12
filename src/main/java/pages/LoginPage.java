@@ -1,39 +1,41 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import utils.Waiters;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends AbsBasePage {
 
-    /** Локаторы     */
+    @FindBy(css = "input[type='text']")
+    private WebElement usernameInput;
 
-    private final By usernameLoc = By.cssSelector("input[type='text']");
-    private final By passwordLoc = By.cssSelector("input[type='password']");
-    private final By loginButtonLoc = By.cssSelector("button[type='submit']");
-    private final By alertLoc = By.cssSelector("input[type='text']");
-    private final By alertLo2c = By.className("navbar-brand");
+    @FindBy(css = "input[type='password']")
+    private WebElement passwordInput;
 
+    @FindBy(css = "button[type='submit']")
+    private WebElement loginButton;
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginPage.class);
+    @FindBy(css = ".navbar-brand")
+    private WebElement logo;
 
     public LoginPage(WebDriver driver) {
-        super(driver, "/login");
-        waiters.waitForElementPresent(usernameLoc);
-        logger.info("Открываю страницу");
+        super(driver, "login");
     }
 
-    public void enterCreds() {
-        logger.info("Я открылся");
+    public void checkFormsLogin() {
+        waiters.waitForElement(ExpectedConditions.visibilityOf(logo));
+        usernameInput.isDisplayed();
+        passwordInput.isDisplayed();
+        loginButton.isDisplayed();
+        logger.info("Проверил поля на странице");
     }
 
-    public void checkEnterButton() {
-        logger.info("Проверяю кнопку");
+    public void login(String username, String password) {
+        open();
+        waiters.waitForElement(ExpectedConditions.visibilityOf(usernameInput));
+        usernameInput.sendKeys(username);
+        passwordInput.sendKeys(password);
+        loginButton.click();
     }
-
-    public void login(){
-        }
 }

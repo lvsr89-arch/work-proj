@@ -7,24 +7,28 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WebDriverFactory {
 
-    private final String browserType = System.getProperty("browser.type").trim().toLowerCase();
     private static final Logger logger = LoggerFactory.getLogger(WebDriverFactory.class);
 
     public WebDriver create() {
+        String browserType = System.getProperty("browser.type");
+        if (browserType == null) {
+            browserType = "chrome";
+        }
+        browserType = browserType.trim().toLowerCase();
+
         logger.info("Поднимаю драйвер браузера {}", browserType);
         switch (browserType) {
             case "chrome" -> {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = (ChromeOptions) new ChromeSettings().settings();
                 return new ChromeDriver(chromeOptions);
-
             }
             case "firefox" -> {
                 WebDriverManager.firefoxdriver().setup();
