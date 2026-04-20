@@ -11,7 +11,7 @@ import java.util.Random;
 public class WishListPage extends AbsBasePage {
 
     private final Random random = new Random();
-    private final By wishlistContainer = By.cssSelector("div.g-4.row");
+    private final By wishlistContainer = By.xpath("//h2[text()='Мои списки желаний']");
     private final By wishlistCards = By.cssSelector("div.g-4.row > div.col");
     private final By wishlistTitles = By.cssSelector(".card-title.h5");
     private final By viewButton = By.cssSelector(".card .btn.btn-primary");
@@ -76,7 +76,7 @@ public class WishListPage extends AbsBasePage {
         WebElement addNewGiftInputDescriptionField = driver.findElement(giftDescriptionInput);
         addNewGiftInputDescriptionField.sendKeys("Ла ла ла " + random.nextInt(1000));
         WebElement priceInputField = waiters.waitForElementToBeVisible(priceInput);
-        priceInputField.clear();
+//        priceInputField.clear();
         priceInputField.sendKeys(String.valueOf(random.nextInt(1000)));
         WebElement addButton = waiters.waitForElementToBeClickable(addButtonModal);
         addButton.click();

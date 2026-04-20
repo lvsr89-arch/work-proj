@@ -7,10 +7,12 @@ import pages.WishListPage;
 public class WishListPageTest extends AbsBaseTest {
 
     @Test
-    public void wishListPageShouldBeAccessibleAfterLogin() throws InterruptedException {
+    public void wishListPageShouldBeAccessibleAfterLogin() {
         login();
         WishListPage wishListPage = new WishListPage(driver);
         wishListPage.waitForPageLoad();
+
+        wishListPage.createNewWishList();
 
         String currentUrl = driver.getCurrentUrl();
         Assertions.assertTrue(currentUrl.contains("wishlists"),
@@ -24,10 +26,8 @@ public class WishListPageTest extends AbsBaseTest {
 
         Assertions.assertFalse(titles.isEmpty(), "Список вишлистов не должен быть пустым");
 
-        wishListPage.createNewWishList();
         wishListPage.clickViewButtonOnFirstWishlist();
         wishListPage.addNewGift();
 
-        Thread.sleep(10000);
     }
 }
